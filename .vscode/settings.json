@@ -1,0 +1,6 @@
+{
+  "java.jdt.ls.java.home": "/opt/homebrew/opt/openjdk/bin/java",
+  "java.project.sourcePaths": [
+    "server"
+  ],
+}

@@ -1,10 +1,8 @@
-package com.cnt101.server;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
 public class Main {
-
     public static void main(String[] args) {
         //using serversocket as argument to automatically close the socket
         //the port number is unique for each server
