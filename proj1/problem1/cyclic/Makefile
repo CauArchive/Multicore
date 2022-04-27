@@ -6,7 +6,7 @@ JC  = javac
 	$(JC) $(JFLAGS) $*.java
 
 CLASSES = \
-	Main.java
+	pc_static_cyclic.java
 default: classes
 
 classes: $(CLASSES:.java=.class)

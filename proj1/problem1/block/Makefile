@@ -6,7 +6,7 @@ JC  = javac
 	$(JC) $(JFLAGS) $*.java
 
 CLASSES = \
-	MatmultD.java
+	pc_static_block.java
 default: classes
 
 classes: $(CLASSES:.java=.class)
