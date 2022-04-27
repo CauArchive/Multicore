@@ -3,35 +3,73 @@ import java.lang.*;
 
 // command-line execution example) java MatmultD 6 < mat500.txt
 // 6 means the number of threads to use
-// < mat500.txt means the file that contains two matrices is given as standard input
-//
-// In eclipse, set the argument value and file input by using the menu [Run]->[Run Configurations]->{[Arguments], [Common->Input File]}.
 
-// Original JAVA source code: http://stackoverflow.com/questions/21547462/how-to-multiply-2-dimensional-arrays-matrix-multiplication
+// Cyclic
+// Thread
+class RowMultiplyThread extends Thread {
+  private final int[][] result;
+  private int[][] matrix1;
+  private int[][] matrix2;
+  long[] times;
+
+  int start; int end; int num;
+
+  public RowMultiplyThread(int[][] result, int[][] matrix1, int[][] matrix2, int start_idx, int num_of_thread, long[] exec_times){
+    this.result = result;
+    this.matrix1 = matrix1;
+    this.matrix2 = matrix2;
+    this.start = start_idx;
+    this.num = num_of_thread;
+    this.times=exec_times;
+  }
+
+  @Override
+  public void run(){
+    long startTime = System.currentTimeMillis();
+    for(int i=start; i<matrix1.length;i+=num){
+      for(int j=0; j<matrix2[0].length;j++){
+        result[i][j] = 0;
+        for(int k=0; k<matrix1[i].length;k++){
+          result[i][j] += matrix1[i][k] * matrix2[k][j];
+        }
+      }
+    }
+    long endTime = System.currentTimeMillis();
+    times[start] = (endTime - startTime);
+  }
+}
+
+
 public class MatmultD
 {
+  private static int NUNM_THREADS;
+  private static long[] times;
   private static Scanner sc = new Scanner(System.in);
+
   public static void main(String [] args)
   {
-    int thread_no=0;
-    if (args.length==1) thread_no = Integer.valueOf(args[0]);
-    else thread_no = 1;
+    if (args.length==1) NUNM_THREADS = Integer.valueOf(args[0]);
+    else NUNM_THREADS = 1;
+    times = new long[NUNM_THREADS];
         
     int a[][]=readMatrix();
     int b[][]=readMatrix();
+    int[][] result = new int[a.length][b[0].length];
 
     long startTime = System.currentTimeMillis();
     int[][] c=multMatrix(a,b);
     long endTime = System.currentTimeMillis();
 
-    // printMatrix(a);
-    // printMatrix(b);    
     printMatrix(c);
 
-    System.out.printf("thread_no: %d\n" , thread_no);
+    for(int i=0; i<NUNM_THREADS; i++){
+      System.out.println("Thread " + i + ": " + times[i]+ "ms");
+    }
+
+    System.out.printf("thread_no: %d\n" , NUNM_THREADS);
     System.out.printf("Calculation Time: %d ms\n" , endTime-startTime);
 
-    System.out.printf("[thread_no]:%2d , [Time]:%4d ms\n", thread_no, endTime-startTime);
+    System.out.printf("[thread_no]:%2d , [Time]:%4d ms\n", NUNM_THREADS, endTime-startTime);
   }
 
    public static int[][] readMatrix() {
@@ -71,13 +109,20 @@ public class MatmultD
     int p = b[0].length;
     int ans[][] = new int[m][p];
 
-    for(int i = 0;i < m;i++){
-      for(int j = 0;j < p;j++){
-        for(int k = 0;k < n;k++){
-          ans[i][j] += a[i][k] * b[k][j];
-        }
-      }
+    RowMultiplyThread[] threads = new RowMultiplyThread[NUNM_THREADS];
+
+    for(int i=0; i<NUNM_THREADS; i++){
+      threads[i] = new RowMultiplyThread(ans, a, b, i, NUNM_THREADS, times);
+      threads[i].start();
     }
+
+    try{
+      for(int i=0; i<NUNM_THREADS; i++){
+        threads[i].join();
+      }
+    }catch (InterruptedException IntExp) {
+    }
+
     return ans;
   }
 }
