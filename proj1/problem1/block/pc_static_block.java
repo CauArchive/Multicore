@@ -3,6 +3,7 @@ import java.lang.*;
 
 // command-line execution example) java pc_static_block 6 200000
 
+// Thread Extended Class for PrimeCheck
 class PrimeCheckThread extends Thread {
   int lo;
   int hi;
@@ -10,6 +11,8 @@ class PrimeCheckThread extends Thread {
   int ans = 0;
   long[] times;
 
+  // get low & high
+  // thread_idx & exec_times for saving execution time
   PrimeCheckThread(int l, int h, int thread_idx,long[] exec_times) {
     this.lo=l; 
     this.hi=h; 
@@ -19,10 +22,12 @@ class PrimeCheckThread extends Thread {
 
   @Override
   public void run() {
+    // start time
     long startTime = System.currentTimeMillis();
     for(int i=lo; i<hi; i++){
       if(isPrime(i)) ans++;
     }
+    // end time
     long endTime = System.currentTimeMillis();
     times[idx] = (endTime - startTime);
   }
