@@ -1,3 +1,8 @@
+/**
+* Multicore Programming Project03 - Problem 1
+Author: Kim, Dong-Wook
+Student ID: 20173299
+**/
 #include <omp.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -37,9 +42,10 @@ void calculate_static() {
   end_time = omp_get_wtime();
 
   double timeDiff = end_time - start_time;
-  printf("Execution Time : %lfms\n", timeDiff);
+  // printf("Execution Time : %lfms\n", timeDiff);
+  printf("%lf,\n", timeDiff);
 
-  printf("%d\n", counter);
+  // printf("%d\n", counter);
 }
 
 void calculate_static_chunk_10() {
@@ -60,9 +66,10 @@ void calculate_static_chunk_10() {
   end_time = omp_get_wtime();
 
   double timeDiff = end_time - start_time;
-  printf("Execution Time : %lfms\n", timeDiff);
+  // printf("Execution Time : %lfms\n", timeDiff);
+  printf("%lf,\n", timeDiff);
 
-  printf("%d\n", counter);
+  // printf("%d\n", counter);
 }
 
 void calculate_dynamic() {
@@ -83,9 +90,10 @@ void calculate_dynamic() {
   end_time = omp_get_wtime();
 
   double timeDiff = end_time - start_time;
-  printf("Execution Time : %lfms\n", timeDiff);
+  // printf("Execution Time : %lfms\n", timeDiff);
+  printf("%lf,\n", timeDiff);
 
-  printf("%d\n", counter);
+  // printf("%d\n", counter);
 }
 
 void calculate_dynamic_chunk_10() {
@@ -106,9 +114,10 @@ void calculate_dynamic_chunk_10() {
   end_time = omp_get_wtime();
 
   double timeDiff = end_time - start_time;
-  printf("Execution Time : %lfms\n", timeDiff);
+  // printf("Execution Time : %lfms\n", timeDiff);
+  printf("%lf,\n", timeDiff);
 
-  printf("%d\n", counter);
+  // printf("%d\n", counter);
 }
 
 int main(int argc, char *argv[]) {
@@ -141,19 +150,19 @@ int main(int argc, char *argv[]) {
 
   switch (sch_type) {
     case STATIC_DEFAULT:
-      printf("Static schedule, default chunk size\n");
+      // printf("Static schedule, default chunk size\n");
       calculate_static();
       break;
     case DYNAMIC_DEFAULT:
-      printf("Dynamic schedule, default chunk size\n");
+      // printf("Dynamic schedule, default chunk size\n");
       calculate_dynamic();
       break;
     case STATIC_CHUNKED_10:
-      printf("Static schedule, chunk size = 10\n");
+      // printf("Static schedule, chunk size = 10\n");
       calculate_static_chunk_10();
       break;
     case DYNAMIC_CHUNKED_10:
-      printf("Dynamic schedule, chunk size = 10\n");
+      // printf("Dynamic schedule, chunk size = 10\n");
       calculate_dynamic_chunk_10();
       break;
   }

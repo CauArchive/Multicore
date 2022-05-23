@@ -1,3 +1,9 @@
+/**
+* Multicore Programming Project03 - Problem 2
+Author: Kim, Dong-Wook
+Student ID: 20173299
+**/
+
 #include <omp.h>
 #include <stdio.h>
 
@@ -27,9 +33,10 @@ void calculate_static(int chunk_size) {
   pi = step * sum;
   end_time = omp_get_wtime();
   double timeDiff = end_time - start_time;
-  printf("Execution Time : %lfms\n", timeDiff);
+  // printf("Execution Time : %lfms\n", timeDiff);
+  printf("%lf\n", timeDiff);
 
-  printf("pi=%.24lf\n", pi);
+  // printf("pi=%.18lf\n", pi);
 }
 
 void calculate_dynamic(int chunk_size) {
@@ -49,9 +56,10 @@ void calculate_dynamic(int chunk_size) {
   pi = step * sum;
   end_time = omp_get_wtime();
   double timeDiff = end_time - start_time;
-  printf("Execution Time : %lfms\n", timeDiff);
+  // printf("Execution Time : %lfms\n", timeDiff);
+  printf("%lf\n", timeDiff);
 
-  printf("pi=%.24lf\n", pi);
+  // printf("pi=%.18lf\n", pi);
 }
 
 void calculate_guided(int chunk_size) {
@@ -71,9 +79,10 @@ void calculate_guided(int chunk_size) {
   pi = step * sum;
   end_time = omp_get_wtime();
   double timeDiff = end_time - start_time;
-  printf("Execution Time : %lfms\n", timeDiff);
+  // printf("Execution Time : %lfms\n", timeDiff);
+  printf("%lf\n", timeDiff);
 
-  printf("pi=%.24lf\n", pi);
+  // printf("pi=%.18lf\n", pi);
 }
 
 int main(int argc, char *argv[]) {
@@ -113,15 +122,15 @@ int main(int argc, char *argv[]) {
 
   switch (type) {
     case STATIC:
-      printf("Static schedule, chunk size = %d\n", chunk_size);
+      // printf("Static schedule, chunk size = %d\n", chunk_size);
       calculate_static(chunk_size);
       break;
     case DYNAMIC:
-      printf("Dynamic schedule, chunk size = %d\n", chunk_size);
+      // printf("Dynamic schedule, chunk size = %d\n", chunk_size);
       calculate_dynamic(chunk_size);
       break;
     case GUIDED:
-      printf("Guided schedule, chunk size = %d\n", chunk_size);
+      // printf("Guided schedule, chunk size = %d\n", chunk_size);
       calculate_guided(chunk_size);
       break;
   }

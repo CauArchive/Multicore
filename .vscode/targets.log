@@ -10,7 +10,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 make: *** No rule to make target `all'.  Stop.
 
 
-# Make data base, printed on Mon May 23 04:27:22 2022
+# Make data base, printed on Mon May 23 23:49:47 2022
 
 # Variables
 
@@ -49,7 +49,7 @@ INFOPATH = /opt/homebrew/share/info:/opt/homebrew/share/info:
 # environment
 P9K_SSH = 0
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/5v/428njbt52r57xv3sr900zkk40000gn/T/vscode-ipc-88170f31-e60b-462c-87b4-d63d8b6001f8.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/5v/428njbt52r57xv3sr900zkk40000gn/T/vscode-ipc-b560c946-f86f-456d-8916-9b1ba478a5aa.sock
 # environment
 VSCODE_CWD = /
 # environment
@@ -67,6 +67,7 @@ ELECTRON_RUN_AS_NODE = 1
 # environment
 SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.wat6z8PNrQ/Listeners
 # automatic
+ 
 %F = $(notdir $%)
 # environment
 CONDA_EXE = /opt/homebrew/Caskroom/miniforge/base/bin/conda
@@ -87,6 +88,7 @@ ORIGINAL_XDG_CURRENT_DESKTOP = undefined
 # environment
 MANPATH = /opt/homebrew/share/man:/Users/woodi/.nvm/versions/node/v16.14.1/share/man:/opt/homebrew/share/man:::
 # environment
+ 
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
 HOME = /Users/woodi
@@ -203,9 +205,9 @@ LANG = C
 
 # Directories
 
-# . (device 16777229, inode 8847961): 13 files, no impossibilities.
+# . (device 16777229, inode 8847961): 14 files, no impossibilities.
 
-# 13 files, no impossibilities in 1 directories.
+# 14 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -277,6 +279,6 @@ GNUmakefile:
 # strcache size: total = 0 / max = 0 / min = 4096 / avg = 0
 # strcache free: total = 0 / max = 0 / min = 4096 / avg = 0
 
-# Finished Make data base on Mon May 23 04:27:22 2022
+# Finished Make data base on Mon May 23 23:49:47 2022
 
  
