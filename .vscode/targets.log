@@ -10,7 +10,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 make: *** No rule to make target `all'.  Stop.
 
 
-# Make data base, printed on Sat Jun 11 20:13:57 2022
+# Make data base, printed on Sat Jun 11 20:31:40 2022
 
 # Variables
 
@@ -21,7 +21,6 @@ make: *** No rule to make target `all'.  Stop.
 # environment
 VSCODE_LOG_NATIVE = false
 # automatic
- 
 ?D = $(patsubst %/,%,$(dir $?))
 # automatic
 @D = $(patsubst %/,%,$(dir $@))
@@ -42,7 +41,7 @@ VSCODE_VERBOSE_LOGGING = true
 # environment
 __CFBundleIdentifier = com.microsoft.VSCode
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/_t/xc6j38w94pn4wlmfdj58bkpw0000gn/T/vscode-ipc-7cd5c8cd-b60a-4f83-a250-9cd35bc108a5.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/_t/xc6j38w94pn4wlmfdj58bkpw0000gn/T/vscode-ipc-087338c1-80f7-4f3a-a446-3150fd26c0e0.sock
 # environment
 VSCODE_CWD = /
 # environment
@@ -76,7 +75,7 @@ VSCODE_CODE_CACHE_PATH = /Users/woodi/Library/Application Support/Code/CachedDat
 # environment
 LOGNAME = woodi
 # environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # automatic
@@ -142,7 +141,6 @@ LANG = C
 # environment
 VSCODE_PID = 616
 # variable set hash-table stats:
- 
 # Load=63/1024=6%, Rehash=0, Collisions=1/83=1%
 
 # Pattern-specific Variable Values
@@ -151,9 +149,9 @@ VSCODE_PID = 616
 
 # Directories
 
-# . (device 16777233, inode 1812190): 13 files, no impossibilities.
+# . (device 16777233, inode 1812190): 14 files, no impossibilities.
 
-# 13 files, no impossibilities in 1 directories.
+# 14 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -225,6 +223,6 @@ GNUmakefile:
 # strcache size: total = 0 / max = 0 / min = 4096 / avg = 0
 # strcache free: total = 0 / max = 0 / min = 4096 / avg = 0
 
-# Finished Make data base on Sat Jun 11 20:13:57 2022
+# Finished Make data base on Sat Jun 11 20:31:40 2022
 
  

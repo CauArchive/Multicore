@@ -1,18 +1,17 @@
 #include <math.h>
+#include <omp.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
 
-#define CUDA 0
-#define OPENMP 1
-#define SPHERES 20
+#define SPHERES 2000
 
 #define rnd(x) (x * rand() / RAND_MAX)
 #define INF 2e10f
 #define DIM 2048
 
-struct Sphere {
+typedef struct Sphere {
   float r, b, g;
   float radius;
   float x, y, z;
@@ -26,14 +25,12 @@ struct Sphere {
     }
     return -INF;
   }
-};
+} Sphere;
 
 void kernel(int x, int y, Sphere* s, unsigned char* ptr) {
   int offset = x + y * DIM;
   float ox = (x - DIM / 2);
   float oy = (y - DIM / 2);
-
-  // printf("x:%d, y:%d, ox:%f, oy:%f\n",x,y,ox,oy);
 
   float r = 0, g = 0, b = 0;
   float maxz = -INF;
@@ -80,20 +77,15 @@ int main(int argc, char* argv[]) {
 
   if (argc != 3) {
     printf("> a.out [option] [filename.ppm]\n");
-    printf("[option] 0: CUDA, 1~16: OpenMP using 1~16 threads\n");
     printf(
         "for example, '> a.out 8 result.ppm' means executing OpenMP with 8 "
         "threads\n");
     exit(0);
   }
+
   FILE* fp = fopen(argv[2], "w");
 
-  if (strcmp(argv[1], "0") == 0)
-    option = CUDA;
-  else {
-    option = OPENMP;
-    no_threads = atoi(argv[1]);
-  }
+  no_threads = atoi(argv[1]);
 
   Sphere* temp_s = (Sphere*)malloc(sizeof(Sphere) * SPHERES);
   for (int i = 0; i < SPHERES; i++) {
@@ -105,10 +97,33 @@ int main(int argc, char* argv[]) {
     temp_s[i].z = rnd(2000.0f) - 1000;
     temp_s[i].radius = rnd(200.0f) + 40;
   }
-
   bitmap = (unsigned char*)malloc(sizeof(unsigned char) * DIM * DIM * 4);
+
+  omp_set_num_threads(no_threads);
+
+  double start, end;
+
+  //   for (int i = 1; i <= 8; i++) {
+  //     omp_set_num_threads(i);
+  //     start = omp_get_wtime();
+  // #pragma omp parallel for schedule(dynamic) private(x, y)
+  //     for (y = 0; y < DIM; y++) {
+  //       for (x = 0; x < DIM; x++) {
+  //         kernel(x, y, temp_s, bitmap);
+  //       }
+  //     }
+  //     end = omp_get_wtime();
+  //     printf("%d threads: %f\n", i + 1, end - start);
+  //   }
+
+  start = omp_get_wtime();
+#pragma omp parallel for schedule(dynamic) private(x, y)
   for (x = 0; x < DIM; x++)
     for (y = 0; y < DIM; y++) kernel(x, y, temp_s, bitmap);
+  end = omp_get_wtime();
+
+  printf("With OpenMP: %f seconds\n", end - start);
+
   ppm_write(bitmap, DIM, DIM, fp);
 
   fclose(fp);

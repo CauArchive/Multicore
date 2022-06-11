@@ -1,22 +1,28 @@
+#include <cuda.h>
+#include <cuda_runtime.h>
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
 
-#define CUDA 0
-#define OPENMP 1
-#define SPHERES 20
+#include <chrono>
+#include <iostream>
+
+#define SPHERES 100
 
 #define rnd(x) (x * rand() / RAND_MAX)
 #define INF 2e10f
 #define DIM 2048
 
+using namespace std;
+using namespace std::chrono;
+
 struct Sphere {
   float r, b, g;
   float radius;
   float x, y, z;
-  float hit(float ox, float oy, float* n) {
+  __host__ __device__ float hit(float ox, float oy, float* n) {
     float dx = ox - x;
     float dy = oy - y;
     if (dx * dx + dy * dy < radius * radius) {
@@ -28,12 +34,13 @@ struct Sphere {
   }
 };
 
-void kernel(int x, int y, Sphere* s, unsigned char* ptr) {
-  int offset = x + y * DIM;
+__global__ void kernel(Sphere* s, unsigned char* ptr) {
+  int x = blockIdx.x * blockDim.x + threadIdx.x;
+  int y = blockIdx.y * blockDim.y + threadIdx.y;
+
+  int offset = x + y * blockDim.x * gridDim.x;
   float ox = (x - DIM / 2);
   float oy = (y - DIM / 2);
-
-  // printf("x:%d, y:%d, ox:%f, oy:%f\n",x,y,ox,oy);
 
   float r = 0, g = 0, b = 0;
   float maxz = -INF;
@@ -71,31 +78,23 @@ void ppm_write(unsigned char* bitmap, int xdim, int ydim, FILE* fp) {
 }
 
 int main(int argc, char* argv[]) {
-  int no_threads;
-  int option;
-  int x, y;
   unsigned char* bitmap;
+  unsigned char* cu_bitmap;
+  Sphere* temp_s;
+  Sphere* cu_temp_s;
 
   srand(time(NULL));
 
-  if (argc != 3) {
-    printf("> a.out [option] [filename.ppm]\n");
-    printf("[option] 0: CUDA, 1~16: OpenMP using 1~16 threads\n");
-    printf(
-        "for example, '> a.out 8 result.ppm' means executing OpenMP with 8 "
-        "threads\n");
+  if (argc != 2) {
+    printf("> a.out [filename.ppm]\n");
+    printf("for example, '> a.out result.ppm' means executing With CUDA\n");
     exit(0);
   }
-  FILE* fp = fopen(argv[2], "w");
 
-  if (strcmp(argv[1], "0") == 0)
-    option = CUDA;
-  else {
-    option = OPENMP;
-    no_threads = atoi(argv[1]);
-  }
+  FILE* fp = fopen(argv[1], "w");
 
-  Sphere* temp_s = (Sphere*)malloc(sizeof(Sphere) * SPHERES);
+  int sphere_size = sizeof(Sphere) * SPHERES;
+  temp_s = (Sphere*)malloc(sphere_size);
   for (int i = 0; i < SPHERES; i++) {
     temp_s[i].r = rnd(1.0f);
     temp_s[i].g = rnd(1.0f);
@@ -106,9 +105,32 @@ int main(int argc, char* argv[]) {
     temp_s[i].radius = rnd(200.0f) + 40;
   }
 
-  bitmap = (unsigned char*)malloc(sizeof(unsigned char) * DIM * DIM * 4);
-  for (x = 0; x < DIM; x++)
-    for (y = 0; y < DIM; y++) kernel(x, y, temp_s, bitmap);
+  int bitmap_size = sizeof(unsigned char) * DIM * DIM * 4;
+  bitmap = (unsigned char*)malloc(bitmap_size);
+
+  dim3 grids(DIM / 32, DIM / 32);
+  dim3 threads(32, 32);
+
+  // start measurement
+  auto start = high_resolution_clock::now();
+
+  cudaMalloc((void**)&cu_temp_s, sphere_size);
+  cudaMemcpy(cu_temp_s, temp_s, sphere_size, cudaMemcpyHostToDevice);
+  cudaMalloc((void**)&cu_bitmap, bitmap_size);
+  // ray tracing kernel function
+  kernel<<<grids, threads>>>(cu_temp_s, cu_bitmap);
+
+  // copy to main memory
+  cudaMemcpy(bitmap, cu_bitmap, bitmap_size, cudaMemcpyDeviceToHost);
+
+  // stop timer
+  auto stop = high_resolution_clock::now();
+  auto duration = duration_cast<microseconds>(stop - start);
+  cudaFree(cu_bitmap);
+  cudaFree(cu_temp_s);
+
+  cout << "With CUDA: " << (duration.count() / 1000000.0) << " seconds" << endl;
+
   ppm_write(bitmap, DIM, DIM, fp);
 
   fclose(fp);
