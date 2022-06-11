@@ -12,7 +12,11 @@
   },
   "[cpp]":{
     "editor.defaultFormatter": "ms-vscode.cpptools",
-    "editor.quickSuggestions": false,
+    "editor.quickSuggestions": {
+      "comments": "off",
+      "strings": "off",
+      "other": "off"
+    },
     "editor.wordWrap": "on",
     "editor.wrappingIndent": "none",
     "editor.quickSuggestionsDelay": 90,

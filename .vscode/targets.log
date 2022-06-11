@@ -10,7 +10,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 make: *** No rule to make target `all'.  Stop.
 
 
-# Make data base, printed on Mon May 23 23:49:47 2022
+# Make data base, printed on Sat Jun 11 20:13:57 2022
 
 # Variables
 
@@ -20,11 +20,8 @@ make: *** No rule to make target `all'.  Stop.
 ?F = $(notdir $?)
 # environment
 VSCODE_LOG_NATIVE = false
-# environment
-ZSH_TMUX_TERM = screen
-# environment
-NVM_INC = /Users/woodi/.nvm/versions/node/v16.14.1/include/node
 # automatic
+ 
 ?D = $(patsubst %/,%,$(dir $?))
 # automatic
 @D = $(patsubst %/,%,$(dir $@))
@@ -45,19 +42,13 @@ VSCODE_VERBOSE_LOGGING = true
 # environment
 __CFBundleIdentifier = com.microsoft.VSCode
 # environment
-INFOPATH = /opt/homebrew/share/info:/opt/homebrew/share/info:
-# environment
-P9K_SSH = 0
-# environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/5v/428njbt52r57xv3sr900zkk40000gn/T/vscode-ipc-b560c946-f86f-456d-8916-9b1ba478a5aa.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/_t/xc6j38w94pn4wlmfdj58bkpw0000gn/T/vscode-ipc-7cd5c8cd-b60a-4f83-a250-9cd35bc108a5.sock
 # environment
 VSCODE_CWD = /
 # environment
-PATH = /opt/homebrew/opt/openjdk/bin:/opt/homebrew/Caskroom/miniforge/base/bin:/opt/homebrew/Caskroom/miniforge/base/condabin:/opt/homebrew/bin:/opt/homebrew/sbin:/opt/homebrew/bin:/Users/woodi/.gem/bin:/Users/woodi/.nvm/versions/node/v16.14.1/bin:/Users/woodi/.asdf/shims:/opt/homebrew/opt/asdf/libexec/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Apple/usr/bin:/Applications/Wireshark.app/Contents/MacOS
+PATH = /usr/bin:/bin:/usr/sbin:/sbin
 # environment
-LSCOLORS = Gxfxcxdxbxegedabagacad
-# environment
-NVM_BIN = /Users/woodi/.nvm/versions/node/v16.14.1/bin
+LaunchInstanceID = BFD8BC3E-98AB-4A59-AA2D-4AA08530746D
 # environment
 VSCODE_LOG_STACK = false
 # environment
@@ -65,53 +56,31 @@ ELECTRON_RUN_AS_NODE = 1
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.wat6z8PNrQ/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.7AJC2oZtPv/Listeners
 # automatic
- 
 %F = $(notdir $%)
-# environment
-CONDA_EXE = /opt/homebrew/Caskroom/miniforge/base/bin/conda
-# environment
-ZSH_TMUX_CONFIG = /Users/woodi/.tmux.conf
 # environment
 VSCODE_PIPE_LOGGING = true
 # environment
-_ZSH_TMUX_FIXED_CONFIG = /Users/woodi/.oh-my-zsh/plugins/tmux/tmux.extra.conf
-# environment
 PWD = /Users/woodi/Programs/school/Multicore
-# environment
-HOMEBREW_CELLAR = /opt/homebrew/Cellar
-# environment
-GEM_HOME = /Users/woodi/.gem
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = undefined
 # environment
-MANPATH = /opt/homebrew/share/man:/Users/woodi/.nvm/versions/node/v16.14.1/share/man:/opt/homebrew/share/man:::
-# environment
- 
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
 HOME = /Users/woodi
 # default
 MAKEFILEPATH := /Applications/Xcode.app/Contents/Developer/Makefiles
 # environment
-VSCODE_CODE_CACHE_PATH = /Users/woodi/Library/Application Support/Code/CachedData/c3511e6c69bb39013c4a4b7b9566ec1ca73fc4d5
+VSCODE_CODE_CACHE_PATH = /Users/woodi/Library/Application Support/Code/CachedData/4af164ea3a06f701fe3e89a2bcbb421d2026b68f
 # environment
 LOGNAME = woodi
 # environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
-# environment
-CONDA_PROMPT_MODIFIER = (base) 
-# environment
-NVM_CD_FLAGS = -q
-# environment
-ZSH = /Users/woodi/.oh-my-zsh
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # automatic
 ^D = $(patsubst %/,%,$(dir $^))
-# environment
-CONDA_DEFAULT_ENV = base
 # environment
 XPC_FLAGS = 0x0
 # default
@@ -120,30 +89,24 @@ MAKE = $(MAKE_COMMAND)
 MAKECMDGOALS := all
 # environment
 SHLVL = 1
-# environment
-JAVA_HOME = /Library/Java/JavaVirtualMachines/zulu-8.jdk/Contents/Home
 # default
 MAKE_VERSION := 3.81
 # environment
 USER = woodi
 # makefile
 .DEFAULT_GOAL := 
-# environment
-LESS = -R
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
-# environment
-CONDA_SHLVL = 1
 # default
 MAKE_COMMAND := /Applications/Xcode.app/Contents/Developer/usr/bin/make
 # default
 .VARIABLES := 
 # environment
-TMPDIR = /var/folders/5v/428njbt52r57xv3sr900zkk40000gn/T/
+TMPDIR = /var/folders/_t/xc6j38w94pn4wlmfdj58bkpw0000gn/T/
 # automatic
 *F = $(notdir $*)
 # environment
-VSCODE_IPC_HOOK = /Users/woodi/Library/Application Support/Code/1.67.2-main.sock
+VSCODE_IPC_HOOK = /Users/woodi/Library/Application Support/Code/1.68.0-main.sock
 # makefile
 MAKEFLAGS = Rrqp
 # environment
@@ -151,17 +114,11 @@ MFLAGS = -Rrqp
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
-NVM_DIR = /Users/woodi/.nvm
-# environment
-XPC_SERVICE_NAME = application.com.microsoft.VSCode.15707648.15707654
-# environment
-HOMEBREW_PREFIX = /opt/homebrew
+XPC_SERVICE_NAME = application.com.microsoft.VSCode.4839704.4839710
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # automatic
 +F = $(notdir $+)
-# environment
-HOMEBREW_REPOSITORY = /opt/homebrew
 # environment
 __CF_USER_TEXT_ENCODING = 0x1F5:0x0:0x0
 # environment
@@ -171,33 +128,22 @@ MAKEFILES :=
 # automatic
 <F = $(notdir $<)
 # environment
-EDITOR = /opt/homebrew/bin/nvim
-# environment
-PAGER = less
-# environment
 LC_ALL = C
 # environment
-CONDA_PYTHON_EXE = /opt/homebrew/Caskroom/miniforge/base/bin/python
+SECURITYSESSIONID = 186b0
 # automatic
 ^F = $(notdir $^)
 # default
 SUFFIXES := 
 # environment
-ASDF_DIR = /opt/homebrew/opt/asdf/libexec
-# environment
-_CE_M = 
-# environment
 MAKELEVEL := 0
 # environment
-CONDA_PREFIX = /opt/homebrew/Caskroom/miniforge/base
-# environment
-VSCODE_PID = 50609
-# environment
-_CE_CONDA = 
-# environment
 LANG = C
+# environment
+VSCODE_PID = 616
 # variable set hash-table stats:
-# Load=90/1024=9%, Rehash=0, Collisions=3/110=3%
+ 
+# Load=63/1024=6%, Rehash=0, Collisions=1/83=1%
 
 # Pattern-specific Variable Values
 
@@ -205,9 +151,9 @@ LANG = C
 
 # Directories
 
-# . (device 16777229, inode 8847961): 14 files, no impossibilities.
+# . (device 16777233, inode 1812190): 13 files, no impossibilities.
 
-# 14 files, no impossibilities in 1 directories.
+# 13 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -279,6 +225,6 @@ GNUmakefile:
 # strcache size: total = 0 / max = 0 / min = 4096 / avg = 0
 # strcache free: total = 0 / max = 0 / min = 4096 / avg = 0
 
-# Finished Make data base on Mon May 23 23:49:47 2022
+# Finished Make data base on Sat Jun 11 20:13:57 2022
 
  
