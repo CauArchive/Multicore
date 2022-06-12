@@ -9,7 +9,7 @@
 #include <chrono>
 #include <iostream>
 
-#define SPHERES 100
+#define SPHERES 500
 
 #define rnd(x) (x * rand() / RAND_MAX)
 #define INF 2e10f
@@ -22,6 +22,7 @@ struct Sphere {
   float r, b, g;
   float radius;
   float x, y, z;
+  // set hit method to be used at host, and device
   __host__ __device__ float hit(float ox, float oy, float* n) {
     float dx = ox - x;
     float dy = oy - y;
@@ -34,6 +35,7 @@ struct Sphere {
   }
 };
 
+// set kernel method to be used at device
 __global__ void kernel(Sphere* s, unsigned char* ptr) {
   int x = blockIdx.x * blockDim.x + threadIdx.x;
   int y = blockIdx.y * blockDim.y + threadIdx.y;
@@ -108,24 +110,30 @@ int main(int argc, char* argv[]) {
   int bitmap_size = sizeof(unsigned char) * DIM * DIM * 4;
   bitmap = (unsigned char*)malloc(bitmap_size);
 
+  // set grids as DIM / 32
+  // set threads as 32
+  // so grids x threads = DIM
   dim3 grids(DIM / 32, DIM / 32);
   dim3 threads(32, 32);
 
   // start measurement
   auto start = high_resolution_clock::now();
 
+  // allocoate memory on device for sphere & bitmap array
   cudaMalloc((void**)&cu_temp_s, sphere_size);
+  // copy sphere array to device
   cudaMemcpy(cu_temp_s, temp_s, sphere_size, cudaMemcpyHostToDevice);
   cudaMalloc((void**)&cu_bitmap, bitmap_size);
   // ray tracing kernel function
   kernel<<<grids, threads>>>(cu_temp_s, cu_bitmap);
 
-  // copy to main memory
+  // copy back to main memory
   cudaMemcpy(bitmap, cu_bitmap, bitmap_size, cudaMemcpyDeviceToHost);
 
   // stop timer
   auto stop = high_resolution_clock::now();
   auto duration = duration_cast<microseconds>(stop - start);
+  // release device memory
   cudaFree(cu_bitmap);
   cudaFree(cu_temp_s);
 

@@ -5,12 +5,13 @@
 #include <string.h>
 #include <time.h>
 
-#define SPHERES 2000
+#define SPHERES 500
 
 #define rnd(x) (x * rand() / RAND_MAX)
 #define INF 2e10f
 #define DIM 2048
 
+// Sphere data structure
 typedef struct Sphere {
   float r, b, g;
   float radius;
@@ -27,6 +28,7 @@ typedef struct Sphere {
   }
 } Sphere;
 
+// Kernel function for Ray Intersection
 void kernel(int x, int y, Sphere* s, unsigned char* ptr) {
   int offset = x + y * DIM;
   float ox = (x - DIM / 2);
@@ -87,6 +89,7 @@ int main(int argc, char* argv[]) {
 
   no_threads = atoi(argv[1]);
 
+  // randomly generate spheres
   Sphere* temp_s = (Sphere*)malloc(sizeof(Sphere) * SPHERES);
   for (int i = 0; i < SPHERES; i++) {
     temp_s[i].r = rnd(1.0f);
@@ -99,27 +102,18 @@ int main(int argc, char* argv[]) {
   }
   bitmap = (unsigned char*)malloc(sizeof(unsigned char) * DIM * DIM * 4);
 
+  // set number of threads
   omp_set_num_threads(no_threads);
 
   double start, end;
 
-  //   for (int i = 1; i <= 8; i++) {
-  //     omp_set_num_threads(i);
-  //     start = omp_get_wtime();
-  // #pragma omp parallel for schedule(dynamic) private(x, y)
-  //     for (y = 0; y < DIM; y++) {
-  //       for (x = 0; x < DIM; x++) {
-  //         kernel(x, y, temp_s, bitmap);
-  //       }
-  //     }
-  //     end = omp_get_wtime();
-  //     printf("%d threads: %f\n", i + 1, end - start);
-  //   }
-
+  // start timer
   start = omp_get_wtime();
+  // set up schedule for OpenMP parallel for loop(Dynamic shcedule)
 #pragma omp parallel for schedule(dynamic) private(x, y)
   for (x = 0; x < DIM; x++)
     for (y = 0; y < DIM; y++) kernel(x, y, temp_s, bitmap);
+  // end timer
   end = omp_get_wtime();
 
   printf("With OpenMP: %f seconds\n", end - start);

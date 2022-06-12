@@ -64,7 +64,7 @@
                 "${file}",
                 "-Xpreprocessor",
                 "-fopenmp",
-                "-I/opt/homebrew/Cellar/libomp/14.0.0/include",
+                "-I/opt/homebrew/Cellar/libomp/14.0.5/include",
                 "-L/usr/local/lib",
                 "-lomp"
             ],
@@ -90,7 +90,7 @@
                 "${file}",
                 "-Xpreprocessor",
                 "-fopenmp",
-                "-I/opt/homebrew/Cellar/libomp/14.0.0/include",
+                "-I/opt/homebrew/Cellar/libomp/14.0.5/include",
                 "-L/usr/local/lib",
                 "-lomp"
             ],
